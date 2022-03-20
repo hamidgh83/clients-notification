@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\ClientsControler;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::controller(ClientsControler::class)->group(function () {
+    Route::get('/clients/{client}', 'get');
+    Route::post('/clients', 'create');
+    Route::patch('/clients/{client}', 'update');
+    Route::delete('/clients/{client}', 'delete');
 });
