@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/error/403', function () {
+    return abort(403);
+})->name('unauthenticated');
