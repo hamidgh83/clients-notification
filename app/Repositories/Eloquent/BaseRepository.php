@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Container\Container;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
 use RuntimeException;
 
 abstract class BaseRepository implements EloquentRepositoryInterface
@@ -33,6 +34,11 @@ abstract class BaseRepository implements EloquentRepositoryInterface
         $this->container = $container;
         $this->model     = $this->makeModel();
     }
+
+    /**
+     * This should return the model name.
+     */
+    abstract protected function getModelName();
 
     /**
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
@@ -159,5 +165,11 @@ abstract class BaseRepository implements EloquentRepositoryInterface
         return $model;
     }
 
-    abstract protected function getModelName();
+    public function findAll(array $conditions, int $perPage = 10, array $columns = ['*']): LengthAwarePaginator
+    {
+        return $this
+                ->query()
+                ->where($conditions)
+                ->paginate($perPage, $columns);
+    }
 }
