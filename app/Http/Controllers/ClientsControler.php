@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateClientRequest;
 use App\Http\Requests\UpdateClientRequest;
+use App\Http\Resources\ClientCollection;
 use App\Http\Resources\ClientResource;
 use App\Models\User as CLient;
 use App\Services\ClientService;
@@ -28,6 +29,16 @@ class ClientsControler extends Controller
     public function get(CLient $client): ClientResource
     {
         return ClientResource::make($client);
+    }
+
+    /**
+     * Get a paginated list of clients.
+     *
+     * @return ClientCollection
+     */
+    public function getAll(): ClientCollection
+    {
+        return ClientCollection::make($this->clientService->getAll());
     }
     
     /**

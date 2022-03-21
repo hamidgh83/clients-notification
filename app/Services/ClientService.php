@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Http\Resources\ClientCollection;
 use App\Models\User as Client;
 use App\Repositories\UserRepository as ClientRepository;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ClientService
 {
@@ -27,5 +29,12 @@ class ClientService
     public function delete(Client $client): bool
     {
         return $this->clientRepository->delete($client) ? true : false;
+    }
+
+    public function getAll(): LengthAwarePaginator
+    {
+        return $this->clientRepository->findAll([
+            ['role', '=', Client::ROLE_CLIENT]
+        ]);
     }
 }
