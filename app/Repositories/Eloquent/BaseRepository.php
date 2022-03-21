@@ -165,7 +165,7 @@ abstract class BaseRepository implements EloquentRepositoryInterface
         return $model;
     }
 
-    public function findAll(array $conditions, int $perPage = 10, array $columns = ['*']): LengthAwarePaginator
+    public function findAll(array $conditions = [], int $perPage = 10, array $columns = ['*']): LengthAwarePaginator
     {
         return $this
                 ->query()

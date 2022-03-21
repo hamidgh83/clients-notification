@@ -29,6 +29,6 @@ class AgentsControler extends Controller
         
         return AgentResource::make($agent)
                 ->response()
-                ->setStatusCode(Response::HTTP_CREATED);;
+                ->setStatusCode(Response::HTTP_CREATED);
     }
 }

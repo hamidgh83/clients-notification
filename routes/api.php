@@ -32,3 +32,10 @@ Route::controller(AgentsControler::class)->group(function () {
     Route::post('/agents', 'create')->name('agent.create');
 });
 
+Route::controller(NotificationsController::class)->group(function () {
+    Route::middleware(['auth:sanctum'])->group(function () {
+        Route::post('/agents/notifications', 'create')->name('agent.notification.create');
+        Route::get('/agents/notifications/{notification}', 'get')->name('agent.notification.view');
+        Route::get('/agents/notifications', 'getAll')->name('agent.notifications.index');
+    });
+});

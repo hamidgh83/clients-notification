@@ -5,8 +5,8 @@ services:
   # PHP-FPM Service
   app:
     build:
-      context: ./docker/php
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: docker/php/Dockerfile
     
     container_name: php
     restart: unless-stopped
@@ -15,6 +15,9 @@ services:
 
     volumes:
       - ./:/var/www
+
+    depends_on:
+      - postgres
 
     networks:
       - app-network
@@ -33,6 +36,9 @@ services:
     volumes:
       - ./:/var/www
       - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+
+    depends_on:
+      - app
 
     networks:
       - app-network
