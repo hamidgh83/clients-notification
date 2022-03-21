@@ -61,29 +61,27 @@ class ClientsControler extends Controller
      *
      * @param Client $client
      * @param UpdateClientRequest $request
-     * @return ClientResource
+     * @return JsonResponse
      */
-    public function update(Client $client, UpdateClientRequest $request): ClientResource
+    public function update(Client $client, UpdateClientRequest $request): JsonResponse
     {
         $client = $this->clientService->update($client, $request->validated());
         
-        return ClientResource::make($client);
+        return ClientResource::make($client)
+                ->response()
+                ->setStatusCode(Response::HTTP_ACCEPTED);
     }
 
     /**
      * Delete an identified client.
      *
      * @param CLient $client
-     * @return JsonResponse
+     * @return Response
      */
-    public function delete(CLient $client): JsonResponse
+    public function delete(CLient $client): Response
     {
-        if ($this->clientService->delete($client)) {
-            return response()->json(['message' => 'The client deleted successfully.']);
-        }
-
-        return response()
-                ->setStatusCode(Response::HTTP_LOCKED)
-                ->json(['message' => 'Cannot delete client.']);
+        $this->clientService->delete($client);
+            
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }
