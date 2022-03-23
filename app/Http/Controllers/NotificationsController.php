@@ -28,8 +28,6 @@ class NotificationsController extends Controller
     {
         $notification = $this->notificationService->create($request->validated());
 
-        // dispatch($job)
-
         return NotificationResource::make($notification);
     }
 
