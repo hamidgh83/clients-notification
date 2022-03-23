@@ -64,6 +64,36 @@ services:
     networks:
       - app-network
 
+  # Mail Server
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: mailhog
+    restart: unless-stopped
+
+    ports:
+      - 1025:1025
+      - 8025:8025
+
+    networks:
+      - app-network
+
+  # RabbitMQ Service
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: unless-stopped
+
+    ports:
+        - 5672:5672
+        - 15672:15672
+    
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+
+    networks:
+      - app-network
+
 volumes:
   dbdata:
     driver: local
