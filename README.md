@@ -22,7 +22,13 @@ In order to run the application you have to build the docker images and run the 
 ```bash
 docker-compose up --build -d
 ```
-It will be served at [localhost:8005](http://localhost:8005) when the containers are up and running.
+To innstall composer package run
+
+```bash
+docker-compose exec app composer install
+```
+
+The app is served at [localhost:8005](http://localhost:8005) when the containers are up and running.
 
 In order to run RabbitMQ workers run:
 
