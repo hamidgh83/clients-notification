@@ -9,6 +9,6 @@ class UserRepository extends BaseRepository
 {
     protected function getModelName()
     {
-        return User::class;        
+        return User::class;
     }
 }

@@ -19,12 +19,12 @@ abstract class BaseRepository implements EloquentRepositoryInterface
      */
     protected $model;
 
-    private $container;
-
     /**
      * @var \Illuminate\Database\Eloquent\Builder
      */
     protected $query;
+
+    private $container;
 
     /**
      * BaseRepository constructor.
@@ -34,11 +34,6 @@ abstract class BaseRepository implements EloquentRepositoryInterface
         $this->container = $container;
         $this->model     = $this->makeModel();
     }
-
-    /**
-     * This should return the model name.
-     */
-    abstract protected function getModelName();
 
     /**
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
@@ -66,7 +61,7 @@ abstract class BaseRepository implements EloquentRepositoryInterface
         $model = $this->container->make($this->getModelName());
 
         if (!$model instanceof Model) {
-            throw new RuntimeException('Class {' . get_class($this->model) . '} must be an instance of Illuminate\\Database\\Eloquent\\Model', );
+            throw new RuntimeException('Class {' . get_class($this->model) . '} must be an instance of Illuminate\\Database\\Eloquent\\Model');
         }
 
         return $model;
@@ -154,7 +149,7 @@ abstract class BaseRepository implements EloquentRepositoryInterface
         }
 
         $data['updated_at'] = new Carbon('now');
-        
+
         $fillable = $model->getFillable();
         if (!empty($fillable)) {
             $model->fillable($fillable)->fill($data);
@@ -168,8 +163,14 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     public function findAll(array $conditions = [], int $perPage = 10, array $columns = ['*']): LengthAwarePaginator
     {
         return $this
-                ->query()
-                ->where($conditions)
-                ->paginate($perPage, $columns);
+            ->query()
+            ->where($conditions)
+            ->paginate($perPage, $columns)
+        ;
     }
+
+    /**
+     * This should return the model name.
+     */
+    abstract protected function getModelName();
 }

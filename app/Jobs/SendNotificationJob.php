@@ -16,34 +16,33 @@ use Illuminate\Support\Str;
 
 class SendNotificationJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     protected array $data;
 
     /**
      * Create a new job instance.
-     *
-     * @return void
      */
     public function __construct(array $data)
     {
         $this->data = $data;
     }
-    
+
     /**
      * Execute the job.
-     *
-     * @return void
      */
     public function handle()
     {
         $method = 'send' . Str::ucfirst($this->queue);
 
-        if (method_exists($this, $method))  {
+        if (method_exists($this, $method)) {
             $client = Client::find($this->data['user_id']);
             if ($this->{$method}($client)) {
                 $notification = Notifications::find($this->data['id']);
-                
+
                 event(new NotificationSent($notification));
             }
         }
@@ -52,25 +51,26 @@ class SendNotificationJob implements ShouldQueue
     protected function sendEmail(Client $client)
     {
         if ($client instanceof Client) {
-            Mail::send('email', ['content' => $this->data['content'] ?? null], function($message) use ($client) {
+            Mail::send('email', ['content' => $this->data['content'] ?? null], function ($message) use ($client) {
                 $message->to($client->email, $client->first_name . ' ' . $client->last_name)
                     ->subject('Notification message')
-                    ->from('agent@example.com', 'Agent');
+                    ->from('agent@example.com', 'Agent')
+                ;
             });
-            
-            Log::info(sprintf("Email sent to %s.", $client->email));
+
+            Log::info(sprintf('Email sent to %s.', $client->email));
 
             return true;
         }
 
         return false;
     }
-    
+
     protected function sendSms(Client $client)
     {
         // Send sms
-        
-        Log::info(sprintf("SMS sent to %s.", $client->email));
+
+        Log::info(sprintf('SMS sent to %s.', $client->email));
 
         return true;
     }

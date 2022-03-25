@@ -34,7 +34,7 @@ class NotificationService
     public function getAll(?int $clientId = null): LengthAwarePaginator
     {
         $conditions = $clientId ? [['user_id', '=', $clientId]] : [];
-        
+
         return $this->notificationRepository->findAll($conditions);
     }
 
@@ -44,10 +44,12 @@ class NotificationService
             case Notifications::TYPE_EMAIL:
             case Notifications::TYPE_SMS:
                 SendNotificationJob::dispatch($notification->toArray())->onQueue($notification->channel);
+
                 break;
-        
+
             default:
                 SendNotificationJob::dispatch($notification->toArray());
+
                 break;
         }
     }

@@ -20,9 +20,6 @@ class NotificationsController extends Controller
 
     /**
      * Create a notification.
-     *
-     * @param CreateNotificationRequest $request
-     * @return NotificationResource
      */
     public function create(CreateNotificationRequest $request): NotificationResource
     {
@@ -33,9 +30,6 @@ class NotificationsController extends Controller
 
     /**
      * Get an identified notification.
-     *
-     * @param Notifications $notification
-     * @return NotificationResource
      */
     public function get(Notifications $notification): NotificationResource
     {
@@ -44,9 +38,6 @@ class NotificationsController extends Controller
 
     /**
      * Get a list of all created notifications.
-     *
-     * @param GetNotificationsRequest $request
-     * @return NotificationCollection
      */
     public function getAll(GetNotificationsRequest $request): NotificationCollection
     {

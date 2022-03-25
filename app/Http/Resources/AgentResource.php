@@ -9,15 +9,15 @@ class AgentResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      */
     public function toArray($request): array
     {
         return [
-            'firstName'   => $this->first_name,
-            'lastName'    => $this->last_name,
-            'email'       => $this->email,
-            'token'       => $this->currentAccessToken(),
+            'firstName' => $this->first_name,
+            'lastName'  => $this->last_name,
+            'email'     => $this->email,
+            'token'     => $this->currentAccessToken(),
         ];
     }
 }

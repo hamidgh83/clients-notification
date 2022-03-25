@@ -17,14 +17,11 @@ class ClientsControler extends Controller
 
     public function __construct(ClientService $clientService)
     {
-        $this->clientService = $clientService;   
+        $this->clientService = $clientService;
     }
 
     /**
      * Get an identified client resource.
-     *
-     * @param CLient $client
-     * @return ClientResource
      */
     public function get(CLient $client): ClientResource
     {
@@ -33,55 +30,45 @@ class ClientsControler extends Controller
 
     /**
      * Get a paginated list of clients.
-     *
-     * @return ClientCollection
      */
     public function getAll(): ClientCollection
     {
         return ClientCollection::make($this->clientService->getAll());
     }
-    
+
     /**
      * Create a new client.
-     *
-     * @param CreateClientRequest $request
-     * @return JsonResponse
      */
     public function create(CreateClientRequest $request): JsonResponse
     {
         $client = $this->clientService->create($request->validated());
-        
+
         return ClientResource::make($client)
-                ->response()
-                ->setStatusCode(Response::HTTP_CREATED);
+            ->response()
+            ->setStatusCode(Response::HTTP_CREATED)
+        ;
     }
 
     /**
-     * Update an identified client. 
-     *
-     * @param Client $client
-     * @param UpdateClientRequest $request
-     * @return JsonResponse
+     * Update an identified client.
      */
     public function update(Client $client, UpdateClientRequest $request): JsonResponse
     {
         $client = $this->clientService->update($client, $request->validated());
-        
+
         return ClientResource::make($client)
-                ->response()
-                ->setStatusCode(Response::HTTP_ACCEPTED);
+            ->response()
+            ->setStatusCode(Response::HTTP_ACCEPTED)
+        ;
     }
 
     /**
      * Delete an identified client.
-     *
-     * @param CLient $client
-     * @return Response
      */
     public function delete(CLient $client): Response
     {
         $this->clientService->delete($client);
-            
+
         return response(null, Response::HTTP_NO_CONTENT);
     }
 }

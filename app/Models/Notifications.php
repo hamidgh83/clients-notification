@@ -7,17 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Notifications extends Model
 {
-    const TYPE_SMS       = 'sms';
-    const TYPE_EMAIL     = 'email';
-    const STATUS_PENDING = 'pending';
-    const STATUS_SENT    = 'sent';
+    use HasFactory;
+    public const TYPE_SMS       = 'sms';
+    public const TYPE_EMAIL     = 'email';
+    public const STATUS_PENDING = 'pending';
+    public const STATUS_SENT    = 'sent';
 
     protected $fillable = [
-        "user_id",
-        "channel",
-        "content",
-        "status",
+        'user_id',
+        'channel',
+        'content',
+        'status',
     ];
-
-    use HasFactory;
 }

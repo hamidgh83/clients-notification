@@ -8,14 +8,13 @@ use Illuminate\Queue\SerializesModels;
 
 class NotificationSent
 {
-    use Dispatchable, SerializesModels;
+    use Dispatchable;
+    use SerializesModels;
 
     public Notifications $notification;
 
     /**
      * Create a new event instance.
-     *
-     * @return void
      */
     public function __construct(Notifications $notification)
     {

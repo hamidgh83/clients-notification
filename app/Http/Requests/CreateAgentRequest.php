@@ -24,9 +24,9 @@ class CreateAgentRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name'   => ['required', 'string', 'max:20'],
-            'last_name'    => ['required', 'string', 'max:20'],
-            'email'        => ['required', 'email', 'unique:users'],
+            'first_name' => ['required', 'string', 'max:20'],
+            'last_name'  => ['required', 'string', 'max:20'],
+            'email'      => ['required', 'email', 'unique:users'],
         ];
     }
 }

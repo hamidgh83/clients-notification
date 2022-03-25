@@ -9,11 +9,9 @@ use App\Services\NotificationService;
 class ResolveNotification
 {
     protected NotificationService $notificationService;
-    
+
     /**
      * Create the event listener.
-     *
-     * @return void
      */
     public function __construct(NotificationService $notificationService)
     {
@@ -22,9 +20,6 @@ class ResolveNotification
 
     /**
      * Handle the event.
-     *
-     * @param  \App\Events\NotificationSent  $event
-     * @return void
      */
     public function handle(NotificationSent $event)
     {

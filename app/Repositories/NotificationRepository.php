@@ -9,6 +9,6 @@ class NotificationRepository extends BaseRepository
 {
     protected function getModelName()
     {
-        return Notifications::class;        
+        return Notifications::class;
     }
 }
