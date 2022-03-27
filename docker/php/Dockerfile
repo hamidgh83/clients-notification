@@ -42,4 +42,3 @@ USER www
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 EXPOSE 9000
-CMD ["php-fpm"]

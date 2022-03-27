@@ -22,15 +22,12 @@ In order to run the application you have to build the docker images and run the 
 ```bash
 docker-compose up --build -d
 ```
-To innstall composer package run
 
-```bash
-docker-compose exec app composer install
-```
+The composer packages are installed automatically and it may takes a while to be completed.
 
-The app is served at [localhost:8005](http://localhost:8005) when the containers are up and running.
+The app is served at [localhost:8005](http://localhost:8005) when the containers are up and running and composer packages installation is done.
 
-In order to run RabbitMQ workers run:
+Now in order to run RabbitMQ workers run:
 
 ```bash
 docker-compose exec app php artisan queue:work
