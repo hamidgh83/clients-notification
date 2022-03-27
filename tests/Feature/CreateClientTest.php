@@ -24,6 +24,17 @@ class CreateClientTest extends TestCase
     {
         $client = Client::factory()->client()->make();
 
-        $this->postJson(route('client.create'), $client->toArray())->assertCreated();
+        $response = $this->postJson(route('client.create'), $client->toArray());
+
+        $response->assertJsonStructure(['data' => [
+            'firstName', 'lastName', 'email',
+        ]])->assertCreated();
+
+        $this->assertDatabaseHas('users', [
+            'first_name' => $client->first_name,
+            'last_name'  => $client->last_name,
+            'email'      => $client->email,
+            'role'       => Client::ROLE_CLIENT,
+        ]);
     }
 }
