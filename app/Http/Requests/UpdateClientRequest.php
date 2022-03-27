@@ -27,7 +27,7 @@ class UpdateClientRequest extends FormRequest
             'first_name'   => ['string', 'max:20'],
             'last_name'    => ['string', 'max:20'],
             'email'        => ['email'],
-            'phone_number' => ['numeric', 'digits_between:6,10'],
+            'phone_number' => ['regex:/^\+[1-9]\d{1,14}$/'],
         ];
     }
 }

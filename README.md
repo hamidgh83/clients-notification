@@ -55,3 +55,9 @@ POST    api/agents/notifications                     Send notification to a clie
 GET     api/agents/notifications                     Get the list of created notifications
 GET     api/agents/notifications/{notification}      Get a notification details
 ```
+
+## Running Tests
+To run the tests run:
+```bash
+docker-compose exec app php artisan test
+```
